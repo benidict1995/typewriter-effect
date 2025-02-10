@@ -1,7 +1,5 @@
 package com.benidict.typewriter_effect.component
 
-import android.util.Log
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -16,7 +14,7 @@ import kotlinx.coroutines.delay
 @Composable
 fun TextTypeWriterEffectView(
     text: String,
-    animSpeed: Long = 160L,
+    delay: Long = 160L,
     style: TextStyle ?= null,
     modifier: Modifier?= null,
     content: @Composable (() -> Unit) ?= null
@@ -24,8 +22,8 @@ fun TextTypeWriterEffectView(
     var textToDisplay by remember { mutableStateOf("") }
     LaunchedEffect(key1 = text) {
         for (i in text.toCharArray()) {
-            textToDisplay += i.toString()
-            delay(animSpeed)
+            textToDisplay += i.toString() //Append each character
+            delay(delay) // Add a delay for the typing effect
         }
     }
 
@@ -36,7 +34,6 @@ fun TextTypeWriterEffectView(
     )
 
     content?.let { returnContent ->
-        Log.d("makerChecker", "textToDisplay = $textToDisplay, text:$text")
         if (textToDisplay == text)
             returnContent()
     }
